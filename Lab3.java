@@ -4,8 +4,16 @@
  * @author Edisson Ajciginac
  * @since 10/15/2025
  */
+import java.util.Random;
+import java.util.Scanner;
 public class Lab3 {
 
+    /**
+     * Main method that executes the game collection program.
+     * Displays a main menu and allows users to select
+     * different games or exit.
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         java.util.Scanner sc = new java.util.Scanner(System.in);
 
@@ -21,16 +29,35 @@ public class Lab3 {
             sc.nextLine(); //newline
 
             if (choice == 1) {
-                System.out.println("-> Entering Guessing Game");
-                // 
-                // 
-                if (postGameMenu(sc, "Guessing Game")) break;
+                boolean keepPlaying = true;
+                while (keepPlaying) {
+                    System.out.println("-> Entering Guessing Game");
+                    playGuessingGame(sc);
+                    int postChoice = postGameMenu(sc, "Guessing Game");
+                    if (postChoice == 1) {
+                        keepPlaying = true;
+                    } else if (postChoice == 2) {
+                        keepPlaying = false;
+                    } else if (postChoice == 3) {
+                        sc.close();
+                        return;
+                    }
+                }
             } else if (choice == 2) {
-                System.out.println("-> Entering Rock-Paper-Scissors");
-                //
-
-                rockPaperScissorsPlaceholder(sc);
-                if (postGameMenu(sc, "Rock-Paper-Scissors")) break;
+                boolean keepPlaying = true;
+                while (keepPlaying) {
+                    System.out.println("-> Entering Rock-Paper-Scissors");
+                    rockPaperScissorsPlaceholder(sc);
+                    int postChoice = postGameMenu(sc, "Rock-Paper-Scissors");
+                    if (postChoice == 1) {
+                        keepPlaying = true;
+                    } else if (postChoice == 2) {
+                        keepPlaying = false;
+                    } else if (postChoice == 3) {
+                        sc.close();
+                        return;
+                    }
+                }
             } else if (choice == 3) {
                 System.out.println("Goodbye!");
                 break;
@@ -42,39 +69,86 @@ public class Lab3 {
         sc.close();
     }
 
-    // Menu
-    public static boolean postGameMenu(java.util.Scanner sc, String gameName) {
+    /**
+     * Displays a post-game menu after completing a game.
+     * Provides options to play the same game again, return
+     * to main menu, or exit. Validates user input and ensures
+     * only valid choices (1-3) are accepted.
+     * @param sc The Scanner object for reading user input
+     * @param gameName The name of the game that was just played
+     * @return An integer representing the user's choice.
+     */
+    public static int postGameMenu(java.util.Scanner sc, String gameName) {
         while (true) {
             System.out.println();
-            System.out.println("=== " + gameName + " - Post Game ===");
-            System.out.println("1. Play the same game again");
-            System.out.println("2. Return to Main Menu");
+            System.out.println("=== End of " + gameName + " ===");
+            System.out.println("1. Play again");
+            System.out.println("2. Return to main menu");
             System.out.println("3. Exit program");
             System.out.print("Choice (1-3): ");
 
             int p = sc.nextInt();
             sc.nextLine();
 
-            if (p == 1) {
-                System.out.println("Playing another round of " + gameName + " (SIMULATION)...");
-                return false; //simulated one more round
-            } else if (p == 2) {
-                System.out.println("Returning to Main Menu...");
-                return false; // back to main menu
-            } else if (p == 3) {
-                System.out.println("Exiting program. Bye!");
-                return true; //exit program
+            if (p == 1 || p == 2 || p == 3) {
+                return p;
             } else {
                 System.out.println("Invalid choice. Try again.");
             }
         }
     }
+    /**
+     * Runs the Guessing Game where the player tries to guess
+     * a random number. The computer genrates a random number between
+     * 1 and 100. The player has 5 attempts to guess it correctly.
+     * After each gues, the program provides feedback indicating whether
+     * the guess was too high or too low.
+     * 
+     * Game Rules:
+     * -Random number is between 1 and 100 (inclusive)
+     * -Player has exactly 5 attempts
+     * -Feedback is provided after each guess (too high/too low)
+     * -Game ends when player guesses correctly or runs out of
+     * attempts
+     * 
+     * @param sc The Scanner object for reading user input
+     */
+    public static void playGuessingGame(java.util.Scanner sc) {
+        Random random = new Random();
+        int numberToGuess = random.nextInt(100) + 1;
+        int maxAttempts = 5;
+        int attempts = 0;
+        boolean hasWon = false;
 
-    // 
-    // Vixen
-    // 
+        System.out.println("\n== Welcome to the Guessing Game!===");
+        System.out.println("I'm thinking of a number between 1 and 100.");
+        System.out.println("You have " + maxAttempts + " attempts to guess the number.\n");
 
-    //
+        while (attempts < maxAttempts && !hasWon) {
+            attempts++;
+            System.out.print("Attempt " + attempts + "/" + maxAttempts + " - Enter your guess: ");
+
+            int guess = sc.nextInt();
+            sc.nextLine();
+
+            if (guess == numberToGuess) {
+                hasWon = true;
+                System.out.println("\nCongratulations! You guessed the number " + numberToGuess + " correctly!");
+                System.out.println("It took you " + attempts + " attempt(s).");
+            } else if (guess < numberToGuess) {
+                System.out.println("Too low! Try again.");
+            } else {
+                System.out.println("Too high! Try again.");
+            }
+        }
+
+        if (!hasWon) {
+            System.out.println("\nSorry, you've run out of attempts!");
+            System.out.println("The correct number was: " + numberToGuess);
+        }
+    }
+
+
     public static void rockPaperScissorsPlaceholder(java.util.Scanner sc) {
         
     }
