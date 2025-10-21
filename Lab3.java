@@ -97,6 +97,7 @@ public class Lab3 {
             }
         }
     }
+    
     /**
      * Runs the Guessing Game where the player tries to guess
      * a random number. The computer genrates a random number between
