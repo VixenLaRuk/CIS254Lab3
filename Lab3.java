@@ -151,7 +151,50 @@ public class Lab3 {
 
 
     public static void rockPaperScissorsPlaceholder(java.util.Scanner sc) {
-        
-    }
+        java.util.Random rand = new java.util.Random();
 
+        System.out.println();
+        System.out.println("Let's play Rock-Paper-Scissors!");
+        System.out.println("Enter your choice: 1. paper, 2. scissors, 3. rock");
+
+        int userChoice;
+        while (true) {
+            System.out.print("Choices 1-3: ");
+            try {
+                userChoice = sc.nextInt();
+                sc.nextLine(); // consume newline
+            } catch (java.util.InputMismatchException e) {
+                sc.nextLine(); // clear invalid input
+                System.out.println("Invalid input. Please enter 1, 2, or 3.");
+                continue;
+            }
+            if (userChoice >= 1 && userChoice <= 3) {
+                break;
+            } else {
+                System.out.println("Enter a number between 1 and 3.");
+            }
+        }
+
+        int compChoice = rand.nextInt(3) + 1; 
+
+        String userStr = (userChoice == 1) ? "paper" : (userChoice == 2) ? "scissors" : "rock";
+        String compStr = (compChoice == 1) ? "paper" : (compChoice == 2) ? "scissors" : "rock";
+
+        System.out.println("You chose: " + userStr);
+        System.out.println("Computer chose: " + compStr);
+
+        if (userChoice == compChoice) {
+            System.out.println("Draw");
+        } else if ((userChoice == 1 && compChoice == 3) || // paper beats rock
+                   (userChoice == 2 && compChoice == 1) || // scissors beats paper
+                   (userChoice == 3 && compChoice == 2)) { // rock beats scissors
+
+      for (int i = 0; i < 3; i++) {
+            System.out.println("Win!");
+        }
+     } else {
+            System.out.println("You lost!");
+        }
+    }
+    
 }
