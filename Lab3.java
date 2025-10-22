@@ -1,5 +1,5 @@
 /**
- * This program consist of a guessing game and a rock-paper-scissor game.
+ * This program consists of a guessing game and a rock-paper-scissor game.
  * @author Vixen La Ruk
  * @author Edisson Ajciginac
  * @since 10/15/2025
@@ -15,7 +15,7 @@ public class Lab3 {
      * @param args Command line arguments
      */
     public static void main(String[] args) {
-        java.util.Scanner sc = new java.util.Scanner(System.in);
+    try (java.util.Scanner sc = new java.util.Scanner(System.in)) {
 
         while (true) {
             System.out.println();
@@ -25,8 +25,15 @@ public class Lab3 {
             System.out.println("3. Exit");
             System.out.print("Choice (1-3): ");
 
-            int choice = sc.nextInt();
-            sc.nextLine(); //newline
+            int choice;
+            try {
+                choice = sc.nextInt();
+                sc.nextLine(); //newline
+            } catch (java.util.InputMismatchException e) {
+                sc.nextLine();
+                System.out.println("Invalid input. Please enter a number between 1 and 3.");
+                continue;
+            }
 
             if (choice == 1) {
                 boolean keepPlaying = true;
@@ -39,7 +46,6 @@ public class Lab3 {
                     } else if (postChoice == 2) {
                         keepPlaying = false;
                     } else if (postChoice == 3) {
-                        sc.close();
                         return;
                     }
                 }
@@ -54,7 +60,6 @@ public class Lab3 {
                     } else if (postChoice == 2) {
                         keepPlaying = false;
                     } else if (postChoice == 3) {
-                        sc.close();
                         return;
                     }
                 }
@@ -65,9 +70,8 @@ public class Lab3 {
                 System.out.println("Invalid choice. Try again.");
             }
         }
-
-        sc.close();
     }
+}
 
     /**
      * Displays a post-game menu after completing a game.
@@ -87,8 +91,15 @@ public class Lab3 {
             System.out.println("3. Exit program");
             System.out.print("Choice (1-3): ");
 
-            int p = sc.nextInt();
-            sc.nextLine();
+            int p;
+            try {
+                p = sc.nextInt();
+                sc.nextLine();
+            } catch (java.util.InputMismatchException e) {
+                sc.nextLine();
+                System.out.println("Invalid input. Please enter a number between 1 and 3.");
+                continue; // skip the rest of the loop and promt again
+            }
 
             if (p == 1 || p == 2 || p == 3) {
                 return p;
@@ -100,9 +111,9 @@ public class Lab3 {
     
     /**
      * Runs the Guessing Game where the player tries to guess
-     * a random number. The computer genrates a random number between
+     * a random number. The computer generates a random number between
      * 1 and 100. The player has 5 attempts to guess it correctly.
-     * After each gues, the program provides feedback indicating whether
+     * After each guess, the program provides feedback indicating whether
      * the guess was too high or too low.
      * 
      * Game Rules:
@@ -129,8 +140,16 @@ public class Lab3 {
             attempts++;
             System.out.print("Attempt " + attempts + "/" + maxAttempts + " - Enter your guess: ");
 
-            int guess = sc.nextInt();
-            sc.nextLine();
+            int guess;
+            try {
+                guess = sc.nextInt();
+                sc.nextLine();
+            } catch (java.util.InputMismatchException e) {
+                sc.nextLine(); // clear the invalid input from the scanner
+                System.out.println("Invalid input. Please enter a number.");
+                attempts--; // don't count this as an attempt since it was invalid
+                continue; // skip the rest of the loop and promt again
+            }
 
             if (guess == numberToGuess) {
                 hasWon = true;
@@ -149,7 +168,28 @@ public class Lab3 {
         }
     }
 
-
+    /**
+     * Executes a Rock-Paper-Scissors game between the user and
+     * the computer. The user is prompted to enter their choice of
+     * either paper, scissors, or rock, represented by the numbers 1,
+     * 2, and 3 respectively. The computer randomly selects its choice,
+     * and the outcome of the game is determined based on the standard
+     * rules of Rock-Paper-Scissors.
+     * 
+     * Game Rules:
+     * -Paper (1) beats Rock (3)
+     * -Rock (3) beats Scissors (2)
+     * -Scissors (2) beats Paper (1)
+     * -If both the user and the computer choose the same option, the
+     * game is a draw.
+     * 
+     * The method handles invalid inputs by promting the user to enter
+     * a valid choice until a correct input is received. After the game
+     * concludes, the result is displayed to the user, indicating whether
+     * they won, lost, or drew against the compter.
+     * 
+     * @param sc The Scanner object used for reading user input.
+     */
     public static void rockPaperScissorsPlaceholder(java.util.Scanner sc) {
         java.util.Random rand = new java.util.Random();
 
@@ -189,12 +229,9 @@ public class Lab3 {
                    (userChoice == 2 && compChoice == 1) || // scissors beats paper
                    (userChoice == 3 && compChoice == 2)) { // rock beats scissors
 
-      for (int i = 0; i < 3; i++) {
-            System.out.println("Win!");
-        }
+            System.out.println("You win!");
      } else {
             System.out.println("You lost!");
         }
     }
-    
 }
