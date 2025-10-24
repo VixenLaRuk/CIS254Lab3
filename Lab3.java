@@ -14,64 +14,65 @@ public class Lab3 {
      * different games or exit.
      * @param args Command line arguments
      */
+
     public static void main(String[] args) {
-    try (java.util.Scanner sc = new java.util.Scanner(System.in)) {
+        try (java.util.Scanner sc = new java.util.Scanner(System.in)) {
 
-        while (true) {
-            System.out.println();
-            System.out.println("MAIN MENU");
-            System.out.println("1. Guessing Game");
-            System.out.println("2. Rock-Paper-Scissors");
-            System.out.println("3. Exit");
-            System.out.print("Choice (1-3): ");
+            while (true) {
+                System.out.println();
+                System.out.println("MAIN MENU");
+                System.out.println("1. Guessing Game");
+                System.out.println("2. Rock-Paper-Scissors");
+                System.out.println("3. Exit");
+                System.out.print("Choice (1-3): ");
 
-            int choice;
-            try {
-                choice = sc.nextInt();
-                sc.nextLine(); //newline
-            } catch (java.util.InputMismatchException e) {
-                sc.nextLine();
-                System.out.println("Invalid input. Please enter a number between 1 and 3.");
-                continue;
-            }
-
-            if (choice == 1) {
-                boolean keepPlaying = true;
-                while (keepPlaying) {
-                    System.out.println("-> Entering Guessing Game");
-                    playGuessingGame(sc);
-                    int postChoice = postGameMenu(sc, "Guessing Game");
-                    if (postChoice == 1) {
-                        keepPlaying = true;
-                    } else if (postChoice == 2) {
-                        keepPlaying = false;
-                    } else if (postChoice == 3) {
-                        return;
-                    }
+                int choice;
+                try {
+                    choice = sc.nextInt();
+                    sc.nextLine(); //newline
+                } catch (java.util.InputMismatchException e) {
+                    sc.nextLine();
+                    System.out.println("Invalid input. Please enter a number between 1 and 3.");
+                    continue;
                 }
-            } else if (choice == 2) {
-                boolean keepPlaying = true;
-                while (keepPlaying) {
-                    System.out.println("-> Entering Rock-Paper-Scissors");
-                    rockPaperScissorsPlaceholder(sc);
-                    int postChoice = postGameMenu(sc, "Rock-Paper-Scissors");
-                    if (postChoice == 1) {
-                        keepPlaying = true;
-                    } else if (postChoice == 2) {
-                        keepPlaying = false;
-                    } else if (postChoice == 3) {
-                        return;
+
+                if (choice == 1) {
+                    boolean keepPlaying = true;
+                    while (keepPlaying) {
+                        System.out.println("-> Entering Guessing Game");
+                        playGuessingGame(sc);
+                        int postChoice = postGameMenu(sc, "Guessing Game");
+                        if (postChoice == 1) {
+                            keepPlaying = true;
+                        } else if (postChoice == 2) {
+                            keepPlaying = false;
+                        } else if (postChoice == 3) {
+                            return;
+                        }
                     }
+                } else if (choice == 2) {
+                    boolean keepPlaying = true;
+                    while (keepPlaying) {
+                        System.out.println("-> Entering Rock-Paper-Scissors");
+                        rockPaperScissorsPlaceholder(sc);
+                        int postChoice = postGameMenu(sc, "Rock-Paper-Scissors");
+                        if (postChoice == 1) {
+                            keepPlaying = true;
+                        } else if (postChoice == 2) {
+                            keepPlaying = false;
+                        } else if (postChoice == 3) {
+                            return;
+                        }
+                    }
+                } else if (choice == 3) {
+                    System.out.println("Goodbye!");
+                    break;
+                } else {
+                    System.out.println("Invalid choice. Try again.");
                 }
-            } else if (choice == 3) {
-                System.out.println("Goodbye!");
-                break;
-            } else {
-                System.out.println("Invalid choice. Try again.");
             }
         }
     }
-}
 
     /**
      * Displays a post-game menu after completing a game.
