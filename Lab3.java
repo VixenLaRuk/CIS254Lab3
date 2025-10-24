@@ -4,7 +4,7 @@ import java.util.Scanner;
  * This program consists of a guessing game and a rock-paper-scissor game.
  * @author Vixen La Ruk
  * @author Edisson Ajciginac
- * @since 10/15/2025
+ * @since 10/16/2025
  */
 public class Lab3 {
 
